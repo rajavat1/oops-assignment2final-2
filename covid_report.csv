@@ -1,0 +1,5 @@
+Case_ID                 , Report_ID          , Date      , Name          , Age, Gender, Address                     , Result
+SYS-COC-DYT-YTL-TRY-8286, SAMP-KIP-2985-53286, 21/03/2024, Abhishek Patel, 19 , M     , Lekoda ujjain madhya pradesh, Negative
+SYS-COC-DYT-YTL-TRY-3820, SAMP-KIP-2985-21820, 21/03/2024, Roshan        , 23 , M     , india                       , Positive
+SYS-COC-DYT-YTL-TRY-5846, SAMP-KIP-2985-23846, 21/03/2024, mohit         , 25 , m     , indore mp                   , Positive
+SYS-COC-DYT-YTL-TRY-7802, SAMP-KIP-2985-87802, 21/03/2024,               , 19 , m     , uhu                         , Positive

@@ -1,0 +1,5 @@
+PRODUCT_ID, product_name, company            , PRODUCT_DETAILS       , Madicine_expiry, PRODUCT_QUANTITY
+0358      , peracitamol , hindustan          , antispasmic           , 07/2026        , 25
+0475      , ondamicine  , cipla              , it is use for vomating, 10/2024        , 100
+0595      , ventair-lc  , marklaboratorie    , use for acidity       , 10/2024        , 20
+9588      , metrozyle   , hindustanpvtlimited, it is use for diarrhea, 08/2025        , 85

@@ -1,0 +1,10 @@
+#UID , #Date     , #patient_name, #age, #Gender, #patient_contect, #Altarnative_Contect, #Patient_Address     , #Patient_identity_No., #Health_Issue, #Dignosis, #Ward, #Doctore_Name
+2987 , 20/03/2024, rahul        , 19  , male   , 8597672940      , 9738461825          , ujjain mp            , 897534682418         , Fever        , NA       , m1   , Dr. Nitin roy
+3070 , 20/03/2024, mohit        , 80  , male   , 8970568402      , 9810275468          , Mohan nagar ujjain mp, 89745675852565       , cold         , NA       , m1   , Dr. Nitin roy
+9826 , 20/03/2024, raj          , 63  , male   , 9758436124      , 7298216482          , rishi nagar ujjain   , 972843918264         , Cough        , NA       , m1   , Dr. Kalpana
+1023 , 20/03/2024, ajay singh   , 22  , male   , 8975648213      , 9758134680          , nagda madhya pradesh , 7594130580           , Grastritis   , NA       , m1   , Dr. Sapna Prajapat
+5652 , 20/03/2024, mohan        , 25  , male   , 8597201675      , 9483572034          , ujjain mp            , 9487356105           , Fever        , NA       , m1   , Dr. Nitin roy
+6398 , 20/03/2024, sabina       , 26  , female , 9570681348      , 9134876528          , gandi nagar ujjain   , 9487035648240        , Cold         , NA       , f1   , Dr. Rahul Sharma
+2304 , 20/03/2024, sohan mishra , 31  , male   , 9201873568      , 8234970645          , ujjain mp            , 9423756103           , Cough        , NA       , m1   , Dr. Nitin roy
+3641 , 20/03/2024, rupa         , 35  , female , 9572648453      , 9572354856          , sehore mp            , 9437861025           , Grastritis   , NA       , f1   , Dr. Kalpana
+10696, 21/03/2024, Kamal        , 65  , Male   , 9985671584      , 7685492458          , ujjain               , 8537569426           , Fiver        , NA       , m1   , Dr. Rahul Sharma

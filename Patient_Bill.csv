@@ -1,0 +1,7 @@
+UID  , Customer_Name , product1  , qty1, product2, qty2, product3, qty3, total
+6918 , ram           , sinarest  , 2   , NA      , 0   , NA      , 0   , ₹64
+7309 , Raju          , PCM       , 3   , NA      , 0   , NA      , 0   , ₹93
+1070 , mohit         , Ondamicine, 2   , namak   , 3   , NA      , 0   , ₹424
+10229, Abhishek Patel, PCM       , 200 , NA      , 0   , NA      , 0   , ₹20800
+7003 , raj           , pcm       , 2   , NA      , 0   , NA      , 0   , ₹46
+

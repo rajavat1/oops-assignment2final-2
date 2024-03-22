@@ -1413,91 +1413,67 @@ public:
     }
 
     void claimInsurance()
+{
+    ifstream fin("insurance_dit.csv");
+    ofstream fout("insurance_dit_new.csv");
+
+    int insuranceNumber, documentNumber, count = 0;
+    string line, word;
+    vector<string> row;
+
+    cout << "Enter the Insurance number : ";
+    cin >> insuranceNumber;
+    cout << "Enter the Document number : ";
+    cin >> documentNumber;
+
+    while (getline(fin, line))
     {
-        // File pointers
-        fstream fin, fout;
+        row.clear();
+        stringstream s(line);
 
-        // Open an existing record
-        fin.open("insurance_dit.csv", ios::in);
-
-        // Create a new file to store updated data
-        fout.open("insurance_dit_new.csv", ios::out);
-
-        int policynumber, policynumber1, input, count = 0, i;
-        string newdetails, documentnumber;
-        int index;
-        string line, word;
-        vector<string> row;
-
-        // Get the roll number from the user
-        cout << "Enter the Insurance number of the record to be updated: ";
-        cin >> policynumber;
-
-        // Determine the index of the subject
-
-        // Traverse the file
-        while (getline(fin, line))
+        while (getline(s, word, ','))
         {
-            row.clear();
-            stringstream s(line);
-
-            while (getline(s, word, ','))
-            {
-                row.push_back(word);
-            }
-
-            stringstream convert(row[0]);
-            convert >> policynumber1;
-
-            if (policynumber1 == policynumber)
-            {
-                cout << "Enter Your Document Number : ";
-                cin >> input;
-
-                if (stoi(row[8]) == input)
-                {
-                    row[index] = newdetails;
-
-                    for (i = 0; i < row.size() - 1; i++)
-                    {
-                        fout << row[i] << ", "; // Write updated row to new file
-                    }
-                    fout << row.back() << "\n";
-                }
-                else
-                {
-                    cout << "Please Enter Right Documentation Number";
-                    continue;
-                }
-            }
-            else
-            {
-                // cout << "Please Enter right policy number";
-                for (i = 0; i < row.size() - 1; i++)
-                {
-                    fout << row[i] << ", "; // Write existing row to new file
-                }
-                fout << row.back() << "\n";
-            }
-        }
-        fin.close();
-        fout.close();
-
-        // Remove the existing file
-        if (remove("insurance_dit.csv") != 0)
-        {
-            perror("Error deleting file");
+            row.push_back(word);
         }
 
-        // Rename the updated file
-        if (rename("insurance_dit_new.csv", "insurance_dit.csv") != 0)
+        int currentInsuranceNumber = stoi(row[0]);
+        int currentDocumentNumber = stoi(row[8]);
+
+        if (currentInsuranceNumber == insuranceNumber && currentDocumentNumber == documentNumber)
         {
-            perror("Error renaming file");
+            count = 1;
+            row[11] = "Claimed"; // Assuming status is in the 12th column
         }
 
-        if (count == 0)
-            cout << "Record not found\n";
+        for (size_t i = 0; i < row.size() - 1; i++)
+        {
+            fout << row[i] << ",";
+        }
+        fout << row.back() << endl;
     }
+    fin.close();
+    fout.close();
+
+    if (remove("insurance_dit.csv") != 0)
+    {
+        cerr << "Error deleting file" << endl;
+    }
+
+    if (rename("insurance_dit_new.csv", "insurance_dit.csv") != 0)
+    {
+        cerr << "Error renaming file" << endl;
+    }
+
+    if (count == 0)
+    {
+        cout << "Details Not Found\n";
+        cout << "Please Enter Right values\n";
+    }
+    else
+    {
+        cout << "Record updated successfully\n";
+    }
+}
 };
 
 // Inventory FUNCTION

@@ -943,7 +943,7 @@ public:
         getline(cin, age);
         cout << "Enter Gender : ";
         getline(cin, gender);
-        cout << "Enter Contect Number : ";
+        cout << "Enter Contact Number : ";
         getline(cin, contectno);
         cout << "Enter Email Id : ";
         getline(cin, mail);
@@ -1414,6 +1414,89 @@ public:
 
     void claimInsurance()
     {
+        // File pointers
+        fstream fin, fout;
+
+        // Open an existing record
+        fin.open("insurance_dit.csv", ios::in);
+
+        // Create a new file to store updated data
+        fout.open("insurance_dit_new.csv", ios::out);
+
+        int policynumber, policynumber1, input, count = 0, i;
+        string newdetails, documentnumber;
+        int index;
+        string line, word;
+        vector<string> row;
+
+        // Get the roll number from the user
+        cout << "Enter the Insurance number of the record to be updated: ";
+        cin >> policynumber;
+
+        // Determine the index of the subject
+
+        // Traverse the file
+        while (getline(fin, line))
+        {
+            row.clear();
+            stringstream s(line);
+
+            while (getline(s, word, ','))
+            {
+                row.push_back(word);
+            }
+
+            stringstream convert(row[0]);
+            convert >> policynumber1;
+
+            if (policynumber1 == policynumber)
+            {
+                cout << "Enter Your Document Number : ";
+                cin >> input;
+
+                if (stoi(row[8]) == input)
+                {
+                    row[index] = newdetails;
+
+                    for (i = 0; i < row.size() - 1; i++)
+                    {
+                        fout << row[i] << ", "; // Write updated row to new file
+                    }
+                    fout << row.back() << "\n";
+                }
+                else
+                {
+                    cout << "Please Enter Right Documentation Number";
+                    continue;
+                }
+            }
+            else
+            {
+                // cout << "Please Enter right policy number";
+                for (i = 0; i < row.size() - 1; i++)
+                {
+                    fout << row[i] << ", "; // Write existing row to new file
+                }
+                fout << row.back() << "\n";
+            }
+        }
+        fin.close();
+        fout.close();
+
+        // Remove the existing file
+        if (remove("insurance_dit.csv") != 0)
+        {
+            perror("Error deleting file");
+        }
+
+        // Rename the updated file
+        if (rename("insurance_dit_new.csv", "insurance_dit.csv") != 0)
+        {
+            perror("Error renaming file");
+        }
+
+        if (count == 0)
+            cout << "Record not found\n";
     }
 };
 
@@ -1650,7 +1733,8 @@ int main()
                 insurancefun();
                 break;
             case 0:
-                cout <<endl<< "Byy! I See You Again....";
+                cout << endl
+                     << "Byy! I See You Again....";
                 cout << endl
                      << "****************************************" << endl
                      << "*              DEVELOPED BY            *" << endl

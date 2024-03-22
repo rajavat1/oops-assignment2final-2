@@ -1413,67 +1413,73 @@ public:
     }
 
     void claimInsurance()
-{
-    ifstream fin("insurance_dit.csv");
-    ofstream fout("insurance_dit_new.csv");
-
-    int insuranceNumber, documentNumber, count = 0;
-    string line, word;
-    vector<string> row;
-
-    cout << "Enter the Insurance number : ";
-    cin >> insuranceNumber;
-    cout << "Enter the Document number : ";
-    cin >> documentNumber;
-
-    while (getline(fin, line))
     {
-        row.clear();
-        stringstream s(line);
+        ifstream fin("insurance_dit.csv");      // Open input file
+        ofstream fout("insurance_dit_new.csv"); // Open output file
 
-        while (getline(s, word, ','))
-        {
-            row.push_back(word);
+        if (!fin || !fout)
+        { // Check if files opened successfully
+            cerr << "Error opening files!" << endl;
+            return;
         }
 
-        int currentInsuranceNumber = stoi(row[0]);
-        int currentDocumentNumber = stoi(row[8]);
+        int uid, count = 0;
+        string newdetails = "CLAIMED";
+        int index = 12;
+        string line, word;
 
-        if (currentInsuranceNumber == insuranceNumber && currentDocumentNumber == documentNumber)
+        // Get the insurance number from the user
+        cout << "Enter the Insurance number: ";
+        cin >> uid;
+
+        while (getline(fin, line))
         {
-            count = 1;
-            row[11] = "Claimed"; // Assuming status is in the 12th column
+            stringstream s(line);
+            vector<string> row;
+
+            while (getline(s, word, ','))
+            {
+                row.push_back(word);
+            }
+            removeSpaces(row[0]);
+            int uid1 = stoi(row[0]); // Convert the insurance number to int
+
+            if (uid1 == uid)
+            {
+                count = 1;
+                row[index] = newdetails;
+            }
+
+            // Write the row to the output file
+            for (size_t i = 0; i < row.size() - 1; i++)
+            {
+                fout << row[i] << ",";
+            }
+            fout << row.back() << "\n";
         }
 
-        for (size_t i = 0; i < row.size() - 1; i++)
+        fin.close();
+        fout.close();
+
+        if (count == 0)
         {
-            fout << row[i] << ",";
+            cout << "Record not found" << endl;
         }
-        fout << row.back() << endl;
-    }
-    fin.close();
-    fout.close();
+        else
+        {
+            // Remove the existing file
+            if (remove("insurance_dit.csv") != 0)
+            {
+                perror("Error deleting file");
+            }
 
-    if (remove("insurance_dit.csv") != 0)
-    {
-        cerr << "Error deleting file" << endl;
+            // Rename the updated file
+            if (rename("insurance_dit_new.csv", "insurance_dit.csv") != 0)
+            {
+                perror("Error renaming file");
+            }
+        }
     }
-
-    if (rename("insurance_dit_new.csv", "insurance_dit.csv") != 0)
-    {
-        cerr << "Error renaming file" << endl;
-    }
-
-    if (count == 0)
-    {
-        cout << "Details Not Found\n";
-        cout << "Please Enter Right values\n";
-    }
-    else
-    {
-        cout << "Record updated successfully\n";
-    }
-}
 };
 
 // Inventory FUNCTION

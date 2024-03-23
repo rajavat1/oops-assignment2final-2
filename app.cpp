@@ -27,6 +27,7 @@ string todaydate()
     struct tm *timeinfo = localtime(&now);
 
     char buffer[80];
+
     strftime(buffer, 80, "%d/%m/%Y", timeinfo);
 
     return buffer;
@@ -47,7 +48,7 @@ int randome1()
 class inventory
 {
 public:
-    void create()
+    void create_inventory()
     {
         // file pointer
         fstream fout;
@@ -85,7 +86,7 @@ public:
         fout.close();
     }
 
-    void read_record()
+    void read_inventory_record()
     {
         // File pointer
         fstream fin;
@@ -117,7 +118,7 @@ public:
         fin.close();
     }
 
-    void search_record()
+    void search_inventory_record()
     {
         // File pointer
         fstream fin;
@@ -204,7 +205,7 @@ public:
             cout << "Record not found\n";
     }
 
-    void update_record()
+    void update_inventory_record()
     {
         // File pointers
         fstream fin, fout;
@@ -269,7 +270,7 @@ public:
         else
         {
             cout << "Wrong choice. Enter again\n";
-            update_record();
+            update_inventory_record();
             return;
         }
 
@@ -325,7 +326,7 @@ public:
         if (count == 0)
             cout << "Record not found\n";
     }
-    void delete_record()
+    void delete_inventory_record()
     {
         // File pointers
         fstream fin, fout;
@@ -420,7 +421,7 @@ public:
 class patient
 {
 public:
-    void create()
+    void create_patient()
     {
         // file pointer
         fstream fout;
@@ -485,7 +486,7 @@ public:
         fout.close();
     }
 
-    void read_record()
+    void read_patient_record()
     {
         // File pointer
         fstream fin;
@@ -517,7 +518,7 @@ public:
         fin.close();
     }
 
-    void search_record()
+    void search_patient_record()
     {
         // File pointer
         fstream fin;
@@ -623,7 +624,7 @@ public:
 class bill_generate
 {
 public:
-    void create()
+    void create_bill()
     {
         // file pointer
         fstream fout;
@@ -687,7 +688,7 @@ public:
         fout.close();
     }
 
-    void read_record()
+    void read_bill_record()
     {
         // File pointer
         fstream fin;
@@ -719,7 +720,7 @@ public:
         fin.close();
     }
 
-    void search_record()
+    void search_bill_record()
     {
         // File pointer
         fstream fin;
@@ -932,9 +933,9 @@ public:
 class insurance
 {
 public:
-    void create()
+    void create_insurance()
     {
-        string name, age, gender, contectno, mail, identity_proof, document_number, policy_type, premium_type, c, duration, insurance_amount;
+        string name, age, gender, contectno, mail, identity_proof, document_number, policy_type, premium_type, c, duration, insurance_amount, Death_Certificate_Number = "NA", Claimed_date = "NA";
         int dura, firstime_amount, pd = 0;
         cin.ignore();
         cout << "Enter Name : ";
@@ -1113,14 +1114,16 @@ public:
             << "NOT CLAIM"
             << ", "
             << firstime_amount << ", "
-            << insurance_amount << "\n";
+            << insurance_amount << ","
+            << Death_Certificate_Number << ","
+            << Claimed_date << "\n";
         fout.close();
 
         cout << endl
              << "Your Insurance is successfully done on date : " << todaydate() << " and Insurance number is : " << randome() << endl;
     }
 
-    void read_record()
+    void read_insurance_record()
     {
         // File pointer
         fstream fin;
@@ -1152,7 +1155,7 @@ public:
         fin.close();
     }
 
-    void search_record()
+    void search_insurance_record()
     {
         // File pointer
         fstream fin;
@@ -1247,10 +1250,12 @@ public:
         fin.close();
 
         if (count == 0)
+        {
             cout << "Record not found\n";
+        }
     }
 
-    void update_record()
+    void update_insurance_record()
     {
         // File pointers
         fstream fin, fout;
@@ -1284,14 +1289,19 @@ public:
         if (property == 1)
         {
             index = 2;
-            // Get the new marks
             cout << "Enter New NAME : ";
-            cin >> newdetails;
+            cin.ignore();
+            getline(cin, newdetails);
+            // conver newdetail into uppercase
+            for (char &c : newdetails)
+            {
+                c = toupper(c);
+            }
         }
         else if (property == 2)
         {
             index = 3;
-            cout << "Enter new Age NAME : ";
+            cout << "Enter new Age : ";
             cin >> newdetails;
         }
         else if (property == 3)
@@ -1302,9 +1312,15 @@ public:
         }
         else if (property == 4)
         {
-            cout << "Enter new MAIL ID  : ";
-            cin >> newdetails;
             index = 6;
+            cout << "Enter new MAIL ID  : ";
+            cin.ignore();
+            getline(cin, newdetails);
+            // conver newdetail into uppercase
+            for (char &c : newdetails)
+            {
+                c = tolower(c);
+            }
         }
         else if (property == 5)
         {
@@ -1348,11 +1364,15 @@ public:
             index = 7;
             cout << "Enter Document Number : ";
             getline(cin, documentnumber);
+            for (char &c : documentnumber)
+            {
+                c = toupper(c);
+            }
         }
         else
         {
             cout << "Wrong choice. Enter again\n";
-            update_record();
+            update_insurance_record();
             return;
         }
 
@@ -1414,160 +1434,138 @@ public:
 
     void claimInsurance()
     {
-        // // File pointers
-        // fstream fin, fout;
+        // File pointers
+        fstream fin, fout;
 
-        // // Open an existing record
-        // fin.open("insurance_dit.csv", ios::in);
+        // Open an existing record
+        fin.open("insurance_dit.csv", ios::in);
 
-        // // Create a new file to store updated data
-        // fout.open("insurance_dit_new.csv", ios::out);
+        // Create a new file to store updated data
+        fout.open("insurance_dit_new.csv", ios::out);
 
-        // int currentPolicyNo, property, ExistingPolicyNo1, count = 0, i;
-        // string newdetails, documentnumber;
-        // int index;
-        // string line, word;
-        // vector<string> row;
+        int count = 0, i, st = 0;
+        string Status, uid1, uid, did, did1, death_c_n, cst, name, claimamount, Policy_Type, Premium_Type, duration;
+        string line, word;
+        vector<string> row;
 
-        // // Get the roll number from the user
-        // cout << "Enter the Insurance number of the record to be updated: ";
-        // cin >> currentPolicyNo;
+        // Get the Insurance number from the user
+        cout << "Enter the Insurance number : ";
+        cin.ignore();
+        getline(cin, uid);
+        // Get the document number from the user
+        cout << "Enter the Document number : ";
+        getline(cin, did);
+        // Get the Death certificate number from the user
+        cout << "Enter the Death Certificate Number : ";
+        getline(cin, death_c_n);
 
-        // // Get the subject to be updated
-        // cout << "[1] NAME" << endl
-        //      << "[2] AGE" << endl
-        //      << "[3] CONTECT NUMBER" << endl
-        //      << "[4] MAIL ID" << endl
-        //      << "[5] DOCUMENT" << endl
-        //      << "Enter the Any Property : ";
-        // cin >> property;
+        for (char &c : did)
+        {
+            c = toupper(c);
+        }
 
-        // // Determine the index of the subject
-        // if (property == 1)
-        // {
-        //     index = 2;
-        //     // Get the new marks
-        //     cout << "Enter New NAME : ";
-        //     cin >> newdetails;
-        // }
-        // else if (property == 2)
-        // {
-        //     index = 3;
-        //     cout << "Enter new Age NAME : ";
-        //     cin >> newdetails;
-        // }
-        // else if (property == 3)
-        // {
-        //     index = 5;
-        //     cout << "Enter new CONTECT number : ";
-        //     cin >> newdetails;
-        // }
-        // else if (property == 4)
-        // {
-        //     cout << "Enter new MAIL ID  : ";
-        //     cin >> newdetails;
-        //     index = 6;
-        // }
-        // else if (property == 5)
-        // {
-        //     string c;
-        //     do
-        //     {
-        //         cout << "Enter Identity Proof : \n";
-        //         cout << "\t1. Aadhaar Card\n";
-        //         cout << "\t2. EPIC Card\n";
-        //         cout << "\t3. Pan Card\n";
-        //         cout << "\t4. Passport Card\n";
-        //         cin.ignore();
-        //         getline(cin, c);
+        Status = "Claimed";
+        // conver newdetail into uppercase
+        for (char &c : Status)
+        {
+            c = toupper(c);
+        }
 
-        //         if (c == "1")
-        //         {
-        //             newdetails = "Aadhaar Card";
-        //             break;
-        //         }
-        //         else if (c == "2")
-        //         {
-        //             newdetails = "EPIC Card";
-        //             break;
-        //         }
-        //         else if (c == "3")
-        //         {
-        //             newdetails = "Pan Card";
-        //             break;
-        //         }
-        //         else if (c == "4")
-        //         {
-        //             newdetails = "Passport Card";
-        //             break;
-        //         }
-        //         else
-        //         {
-        //             cout << "\nEnter Right Choise\n";
-        //             continue;
-        //         }
-        //     } while (true);
-        //     index = 7;
-        //     cout << "Enter Document Number : ";
-        //     getline(cin, documentnumber);
-        // }
-        // else
-        // {
-        //     cout << "Wrong choice. Enter again\n";
-        //     update_record();
-        //     return;
-        // }
+        // Traverse the file
+        while (getline(fin, line))
+        {
+            row.clear();
+            stringstream s(line);
 
-        // // Traverse the file
-        // while (getline(fin, line))
-        // {
-        //     row.clear();
-        //     stringstream s(line);
+            while (getline(s, word, ','))
+            {
+                row.push_back(word);
+            }
 
-        //     while (getline(s, word, ','))
-        //     {
-        //         row.push_back(word);
-        //     }
+            uid1 = row[0];
+            did1 = row[8];
+            removeSpaces(did1);
+            cst = row[12];
+            removeSpaces(cst);
 
-        //     stringstream convert(row[0]);
-        //     convert >> ExistingPolicyNo1;
+            if (uid1 == uid && did1 == did)
+            {
+                name = row[2];
+                claimamount = row[14];
+                Policy_Type = row[9];
+                Premium_Type = row[10];
+                duration = row[11];
+                count = 1;
+                if (cst == "CLAIMED")
+                {
+                    st = 1;
+                }
+                else
+                {
+                    row[12] = Status;
+                    row[15] = death_c_n;
+                    row[16] = todaydate();
+                }
 
-        //     if (ExistingPolicyNo1 == currentPolicyNo)
-        //     {
-        //         count = 1;
-        //         row[index] = newdetails;
-        //         for (i = 0; i < row.size() - 1; i++)
-        //         {
-        //             fout << row[i] << ", "; // Write updated row to new file
-        //         }
-        //         fout << row.back() << "\n";
-        //     }
-        //     else
-        //     {
-        //         for (i = 0; i < row.size() - 1; i++)
-        //         {
-        //             fout << row[i] << ", "; // Write existing row to new file
-        //         }
-        //         fout << row.back() << "\n";
-        //     }
-        // }
-        // fin.close();
-        // fout.close();
+                for (i = 0; i < row.size() - 1; i++)
+                {
+                    fout << row[i] << ", "; // Write updated row to new file
+                }
+                fout << row.back() << "\n";
+            }
+            else
+            {
+                for (i = 0; i < row.size() - 1; i++)
+                {
+                    fout << row[i] << ", "; // Write existing row to new file
+                }
+                fout << row.back() << "\n";
+            }
+        }
+        fin.close();
+        fout.close();
 
-        // // Remove the existing file
-        // if (remove("insurance_dit.csv") != 0)
-        // {
-        //     perror("Error deleting file");
-        // }
+        // Remove the existing file
+        if (remove("insurance_dit.csv") != 0)
+        {
+            perror("Error deleting file");
+        }
 
-        // // Rename the updated file
-        // if (rename("insurance_dit_new.csv", "insurance_dit.csv") != 0)
-        // {
-        //     perror("Error renaming file");
-        // }
+        // Rename the updated file
+        if (rename("insurance_dit_new.csv", "insurance_dit.csv") != 0)
+        {
+            perror("Error renaming file");
+        }
+        cout << endl;
+        for (int i = 5; i >= 0; --i)
+        {
+            cout << "\r(" << i << ")s Please Wait We Will check...." << flush;
+            this_thread::sleep_for(chrono::seconds(1)); // Pause for 1 second
+        }
+        cout << endl;
+        if (count == 0)
+        {
+            cout << "Record not found\n";
+        }
 
-        // if (count == 0)
-        //     cout << "Record not found\n";
+        if (st == 1)
+        {
+            cout << endl
+                 << "Name is : " << name << endl;
+            cout << endl
+                 << "Your insurance is alrady Claimed..!!" << endl;
+        }
+        else
+        {
+            cout << endl
+                 << "Name is : " << name << endl;
+            cout << "Claim Amount is : " << claimamount << endl;
+            cout << "Insurance Policy Type is : " << Policy_Type << endl;
+            cout << "Premium Type is : " << Premium_Type << endl;
+            cout << "Duration of insurance  is : " << duration << endl;
+            cout << endl
+                 << "Claim SuccessFull!!" << endl;
+        }
     }
 };
 
@@ -1592,19 +1590,19 @@ int inventoryfun()
         switch (choice)
         {
         case 1:
-            prdcts.create();
+            prdcts.create_inventory();
             break;
         case 2:
-            prdcts.search_record();
+            prdcts.search_inventory_record();
             break;
         case 3:
-            prdcts.read_record();
+            prdcts.read_inventory_record();
             break;
         case 4:
-            prdcts.update_record();
+            prdcts.update_inventory_record();
             break;
         case 5:
-            prdcts.delete_record();
+            prdcts.delete_inventory_record();
             break;
         case 0:
             cout << endl
@@ -1638,13 +1636,13 @@ int patientfun()
         switch (choice)
         {
         case 1:
-            prdcts.create();
+            prdcts.create_patient();
             break;
         case 2:
-            prdcts.search_record();
+            prdcts.search_patient_record();
             break;
         case 3:
-            prdcts.read_record();
+            prdcts.read_patient_record();
             break;
         case 0:
             cout << endl
@@ -1679,13 +1677,13 @@ int bill()
         switch (choice)
         {
         case 1:
-            prdcts.create();
+            prdcts.create_bill();
             break;
         case 2:
-            prdcts.search_record();
+            prdcts.search_bill_record();
             break;
         case 3:
-            prdcts.read_record();
+            prdcts.read_bill_record();
             break;
         case 0:
             cout << endl
@@ -1729,16 +1727,16 @@ int insurancefun()
         switch (choice)
         {
         case 1:
-            insu.create();
+            insu.create_insurance();
             break;
         case 2:
-            insu.search_record();
+            insu.search_insurance_record();
             break;
         case 3:
-            insu.update_record();
+            insu.update_insurance_record();
             break;
         case 4:
-            insu.read_record();
+            insu.read_insurance_record();
             break;
         case 5:
             insu.claimInsurance();

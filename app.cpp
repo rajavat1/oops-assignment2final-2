@@ -1414,71 +1414,160 @@ public:
 
     void claimInsurance()
     {
-        ifstream fin("insurance_dit.csv");      // Open input file
-        ofstream fout("insurance_dit_new.csv"); // Open output file
+        // // File pointers
+        // fstream fin, fout;
 
-        if (!fin || !fout)
-        { // Check if files opened successfully
-            cerr << "Error opening files!" << endl;
-            return;
-        }
+        // // Open an existing record
+        // fin.open("insurance_dit.csv", ios::in);
 
-        int uid, count = 0;
-        string newdetails = "CLAIMED";
-        int index = 12;
-        string line, word;
+        // // Create a new file to store updated data
+        // fout.open("insurance_dit_new.csv", ios::out);
 
-        // Get the insurance number from the user
-        cout << "Enter the Insurance number: ";
-        cin >> uid;
+        // int currentPolicyNo, property, ExistingPolicyNo1, count = 0, i;
+        // string newdetails, documentnumber;
+        // int index;
+        // string line, word;
+        // vector<string> row;
 
-        while (getline(fin, line))
-        {
-            stringstream s(line);
-            vector<string> row;
+        // // Get the roll number from the user
+        // cout << "Enter the Insurance number of the record to be updated: ";
+        // cin >> currentPolicyNo;
 
-            while (getline(s, word, ','))
-            {
-                row.push_back(word);
-            }
-            removeSpaces(row[0]);
-            int uid1 = stoi(row[0]); // Convert the insurance number to int
+        // // Get the subject to be updated
+        // cout << "[1] NAME" << endl
+        //      << "[2] AGE" << endl
+        //      << "[3] CONTECT NUMBER" << endl
+        //      << "[4] MAIL ID" << endl
+        //      << "[5] DOCUMENT" << endl
+        //      << "Enter the Any Property : ";
+        // cin >> property;
 
-            if (uid1 == uid)
-            {
-                count = 1;
-                row[index] = newdetails;
-            }
+        // // Determine the index of the subject
+        // if (property == 1)
+        // {
+        //     index = 2;
+        //     // Get the new marks
+        //     cout << "Enter New NAME : ";
+        //     cin >> newdetails;
+        // }
+        // else if (property == 2)
+        // {
+        //     index = 3;
+        //     cout << "Enter new Age NAME : ";
+        //     cin >> newdetails;
+        // }
+        // else if (property == 3)
+        // {
+        //     index = 5;
+        //     cout << "Enter new CONTECT number : ";
+        //     cin >> newdetails;
+        // }
+        // else if (property == 4)
+        // {
+        //     cout << "Enter new MAIL ID  : ";
+        //     cin >> newdetails;
+        //     index = 6;
+        // }
+        // else if (property == 5)
+        // {
+        //     string c;
+        //     do
+        //     {
+        //         cout << "Enter Identity Proof : \n";
+        //         cout << "\t1. Aadhaar Card\n";
+        //         cout << "\t2. EPIC Card\n";
+        //         cout << "\t3. Pan Card\n";
+        //         cout << "\t4. Passport Card\n";
+        //         cin.ignore();
+        //         getline(cin, c);
 
-            // Write the row to the output file
-            for (size_t i = 0; i < row.size() - 1; i++)
-            {
-                fout << row[i] << ",";
-            }
-            fout << row.back() << "\n";
-        }
+        //         if (c == "1")
+        //         {
+        //             newdetails = "Aadhaar Card";
+        //             break;
+        //         }
+        //         else if (c == "2")
+        //         {
+        //             newdetails = "EPIC Card";
+        //             break;
+        //         }
+        //         else if (c == "3")
+        //         {
+        //             newdetails = "Pan Card";
+        //             break;
+        //         }
+        //         else if (c == "4")
+        //         {
+        //             newdetails = "Passport Card";
+        //             break;
+        //         }
+        //         else
+        //         {
+        //             cout << "\nEnter Right Choise\n";
+        //             continue;
+        //         }
+        //     } while (true);
+        //     index = 7;
+        //     cout << "Enter Document Number : ";
+        //     getline(cin, documentnumber);
+        // }
+        // else
+        // {
+        //     cout << "Wrong choice. Enter again\n";
+        //     update_record();
+        //     return;
+        // }
 
-        fin.close();
-        fout.close();
+        // // Traverse the file
+        // while (getline(fin, line))
+        // {
+        //     row.clear();
+        //     stringstream s(line);
 
-        if (count == 0)
-        {
-            cout << "Record not found" << endl;
-        }
-        else
-        {
-            // Remove the existing file
-            if (remove("insurance_dit.csv") != 0)
-            {
-                perror("Error deleting file");
-            }
+        //     while (getline(s, word, ','))
+        //     {
+        //         row.push_back(word);
+        //     }
 
-            // Rename the updated file
-            if (rename("insurance_dit_new.csv", "insurance_dit.csv") != 0)
-            {
-                perror("Error renaming file");
-            }
-        }
+        //     stringstream convert(row[0]);
+        //     convert >> ExistingPolicyNo1;
+
+        //     if (ExistingPolicyNo1 == currentPolicyNo)
+        //     {
+        //         count = 1;
+        //         row[index] = newdetails;
+        //         for (i = 0; i < row.size() - 1; i++)
+        //         {
+        //             fout << row[i] << ", "; // Write updated row to new file
+        //         }
+        //         fout << row.back() << "\n";
+        //     }
+        //     else
+        //     {
+        //         for (i = 0; i < row.size() - 1; i++)
+        //         {
+        //             fout << row[i] << ", "; // Write existing row to new file
+        //         }
+        //         fout << row.back() << "\n";
+        //     }
+        // }
+        // fin.close();
+        // fout.close();
+
+        // // Remove the existing file
+        // if (remove("insurance_dit.csv") != 0)
+        // {
+        //     perror("Error deleting file");
+        // }
+
+        // // Rename the updated file
+        // if (rename("insurance_dit_new.csv", "insurance_dit.csv") != 0)
+        // {
+        //     perror("Error renaming file");
+        // }
+
+        // if (count == 0)
+        //     cout << "Record not found\n";
     }
 };
 

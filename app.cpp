@@ -1557,14 +1557,18 @@ public:
         }
         else
         {
-            cout << endl
-                 << "Name is : " << name << endl;
-            cout << "Claim Amount is : " << claimamount << endl;
-            cout << "Insurance Policy Type is : " << Policy_Type << endl;
-            cout << "Premium Type is : " << Premium_Type << endl;
-            cout << "Duration of insurance  is : " << duration << endl;
-            cout << endl
-                 << "Claim SuccessFull!!" << endl;
+            if (st == 0 && count == 1)
+            {
+
+                cout << endl
+                     << "Name is : " << name << endl;
+                cout << "Claim Amount is : " << claimamount << endl;
+                cout << "Insurance Policy Type is : " << Policy_Type << endl;
+                cout << "Premium Type is : " << Premium_Type << endl;
+                cout << "Duration of insurance  is : " << duration << endl;
+                cout << endl
+                     << "Claim SuccessFull!!" << endl;
+            }
         }
     }
 };
